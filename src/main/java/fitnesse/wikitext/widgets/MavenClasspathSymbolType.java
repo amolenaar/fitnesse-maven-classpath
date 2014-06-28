@@ -42,7 +42,8 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
         boolean result = false;
         StackTraceElement[] stack = new Throwable().getStackTrace();
         for (StackTraceElement frame : stack) {
-            if (JUnitHelper.class.getName().equals(frame.getClassName())) {
+            String frameClassName = frame.getClassName();
+            if (JUnitHelper.class.getName().equals(frameClassName) || frameClassName.contains("FitNesseRunner")) {
                 result = true;
                 break;
             }
