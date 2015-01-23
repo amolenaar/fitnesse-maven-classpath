@@ -70,15 +70,17 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 
     }
 
-    @SuppressWarnings("unchecked")
 	private List<String> getClasspathElements(final ParsedSymbol parsedSymbol) throws MavenClasspathExtractionException {
-    	if(classpathCache.containsKey(parsedSymbol.symbol)) {
-    		return classpathCache.get(parsedSymbol.symbol);
-    	} else {
-    		final List<String> classpath = mavenClasspathExtractor.extractClasspathEntries(parsedSymbol.getPomFile(), parsedSymbol.getScope());
+    	if(!classpathCache.containsKey(parsedSymbol.symbol)) {
+            List<String> classpath;
+            if (mavenClasspathExtractor != null) {
+                classpath = mavenClasspathExtractor.extractClasspathEntries(parsedSymbol.getPomFile(), parsedSymbol.getScope());
+            } else {
+                classpath = Collections.emptyList();
+            }
             classpathCache.put(parsedSymbol.symbol, classpath);
-            return classpath;
     	}
+        return classpathCache.get(parsedSymbol.symbol);
     }
 
     private ParsedSymbol getParsedSymbol(Translator translator, Symbol symbol) {
