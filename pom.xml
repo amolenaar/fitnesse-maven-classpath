@@ -10,9 +10,9 @@
   <groupId>org.fitnesse.plugins</groupId>
   <artifactId>maven-classpath-plugin</artifactId>
   <name>Maven Classpath Plugin</name>
-  <version>1.8-SNAPSHOT2</version>
+  <version>1.9-SNAPSHOT2</version>
   <url>https://github.com/fhoeben/fitnesse-maven-classpath</url>
-  
+
   <description>
     FitNesse plugin for adding libraries from a Maven pom.xml configuration.
   </description>
@@ -35,7 +35,7 @@
     <dependency>
       <groupId>org.fitnesse</groupId>
       <artifactId>fitnesse</artifactId>
-      <version>20111025</version>
+      <version>20150114</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
