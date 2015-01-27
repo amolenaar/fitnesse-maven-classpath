@@ -10,9 +10,9 @@
   <groupId>org.fitnesse.plugins</groupId>
   <artifactId>maven-classpath-plugin</artifactId>
   <name>Maven Classpath Plugin</name>
-  <version>1.9-SNAPSHOT</version>
-  <url>https://github.com/amolenaar/fitnesse-maven-classpath</url>
-  
+  <version>1.9-SNAPSHOT2</version>
+  <url>https://github.com/fhoeben/fitnesse-maven-classpath</url>
+
   <description>
     FitNesse plugin for adding libraries from a Maven pom.xml configuration.
   </description>
@@ -26,9 +26,9 @@
   </licenses>
   
   <scm>
-    <url>scm:git:git@github.com:amolenaar/fitnesse-maven-classpath.git</url>
-    <connection>scm:git:git@github.com:amolenaar/fitnesse-maven-classpath.git</connection>
-    <developerConnection>scm:git:git@github.com:amolenaar/fitnesse-maven-classpath.git</developerConnection>
+    <url>scm:git:git@github.com:fhoeben/fitnesse-maven-classpath.git</url>
+    <connection>scm:git:git@github.com:fhoeben/fitnesse-maven-classpath.git</connection>
+    <developerConnection>scm:git:git@github.com:fhoeben/fitnesse-maven-classpath.git</developerConnection>
   </scm>
   
   <dependencies>
@@ -100,5 +100,10 @@
       <email>amolenaar@xebia.com</email>
       <name>Arjan Molenaar</name>
     </developer>
+	  <developer>
+		  <id>fhoeben</id>
+		  <email>github@hsac.nl</email>
+		  <name>Fried Hoeben</name>
+	  </developer>
   </developers>
 </project>

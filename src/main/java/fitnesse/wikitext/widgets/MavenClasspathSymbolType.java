@@ -1,6 +1,7 @@
 package fitnesse.wikitext.widgets;
 
-import fitnesse.html.HtmlUtil;
+import fitnesse.junit.FitNesseRunner;
+import fitnesse.junit.JUnitHelper;
 import fitnesse.wikitext.parser.*;
 import org.codehaus.plexus.PlexusContainerException;
 
@@ -22,12 +23,28 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 
     public MavenClasspathSymbolType() throws PlexusContainerException {
         super("MavenClasspathSymbolType");
-        this.mavenClasspathExtractor = new MavenClasspathExtractor();
+        if (!isCalledByJUnitHelper()) {
+            this.mavenClasspathExtractor = new MavenClasspathExtractor();
+        }
 
         wikiMatcher(new Matcher().startLineOrCell().string("!pomFile"));
 
         wikiRule(this);
         htmlTranslation(this);
+    }
+
+    private boolean isCalledByJUnitHelper() {
+        boolean result = false;
+        StackTraceElement[] stack = new Throwable().getStackTrace();
+        for (StackTraceElement frame : stack) {
+            String frameClassName = frame.getClassName();
+            if (JUnitHelper.class.getName().equals(frameClassName)
+                    || FitNesseRunner.class.getName().equals(frameClassName)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -55,15 +72,17 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 
     }
 
-    @SuppressWarnings("unchecked")
 	private List<String> getClasspathElements(final ParsedSymbol parsedSymbol) throws MavenClasspathExtractionException {
-    	if(classpathCache.containsKey(parsedSymbol.symbol)) {
-    		return classpathCache.get(parsedSymbol.symbol);
-    	} else {
-    		final List<String> classpath = mavenClasspathExtractor.extractClasspathEntries(parsedSymbol.getPomFile(), parsedSymbol.getScope());
+    	if(!classpathCache.containsKey(parsedSymbol.symbol)) {
+            List<String> classpath;
+            if (mavenClasspathExtractor != null) {
+                classpath = mavenClasspathExtractor.extractClasspathEntries(parsedSymbol.getPomFile(), parsedSymbol.getScope());
+            } else {
+                classpath = Collections.emptyList();
+            }
             classpathCache.put(parsedSymbol.symbol, classpath);
-            return classpath;
     	}
+        return classpathCache.get(parsedSymbol.symbol);
     }
 
     private ParsedSymbol getParsedSymbol(Translator translator, Symbol symbol) {
