@@ -1,5 +1,6 @@
 package fitnesse.wikitext.widgets;
 
+import fitnesse.junit.FitNesseRunner;
 import fitnesse.junit.JUnitHelper;
 import fitnesse.wikitext.parser.*;
 import org.codehaus.plexus.PlexusContainerException;
@@ -37,7 +38,8 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
         StackTraceElement[] stack = new Throwable().getStackTrace();
         for (StackTraceElement frame : stack) {
             String frameClassName = frame.getClassName();
-            if (JUnitHelper.class.getName().equals(frameClassName) || frameClassName.contains("FitNesseRunner")) {
+            if (JUnitHelper.class.getName().equals(frameClassName)
+                    || FitNesseRunner.class.getName().equals(frameClassName)) {
                 result = true;
                 break;
             }
