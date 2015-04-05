@@ -16,6 +16,9 @@ FitNesse plugin that provides Maven Classpath support.
         
  - you can define the file as `pom.xml@compile` to include a specific scope.
 
+ - if you want to disable this plugin (for instance during a jUnit run with all plugins on classpath): set the system property `fitnesse.wikitext.widgets.MavenClasspathSymbolType.Disable` to `true`
+
+
 # How to contribute.
 
  - Fork the repository and send pull requests.
