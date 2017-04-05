@@ -1,3 +1,17 @@
 <settings>
-  <localRepository>/tmp/fitnesse-maven-classpath/user-repository</localRepository>
+  <localRepository>${project.build.directory}/local-repository</localRepository>
+  <profiles>
+    <profile>
+      <id>test-repository</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>project-repository</id>
+          <url>file://${project.build.testOutputDirectory}/MavenClasspathWidget/repository</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 </settings>

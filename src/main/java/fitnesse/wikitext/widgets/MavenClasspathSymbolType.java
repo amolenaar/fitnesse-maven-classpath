@@ -47,7 +47,6 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 
     @Override
     public String toTarget(Translator translator, Symbol symbol) {
-        List<String> classpathElements = null;
         ParsedSymbol parsedSymbol = getParsedSymbol(translator, symbol);
         StringBuilder classpathForRender = new StringBuilder("<p class='meta'>Maven classpath [file: ")
                 .append(parsedSymbol.getPomFile())
@@ -56,7 +55,7 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
                 .append("]:</p>")
                 .append("<ul class='meta'>");
         try {
-            classpathElements = getClasspathElements(parsedSymbol);
+            List<String> classpathElements = getClasspathElements(parsedSymbol);
             for (String element : classpathElements) {
                 classpathForRender.append("<li>").append(element).append("</li>");
             }
@@ -113,7 +112,7 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
         try {
             return getClasspathElements(getParsedSymbol(translator, symbol));
         } catch (MavenClasspathExtractionException e) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 	
