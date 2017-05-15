@@ -29,12 +29,12 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 
     private MavenClasspathExtractor mavenClasspathExtractor;
 
-    private final Map<String, List<String>> classpathCache = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> classpathCache = new HashMap<>();
 
     public MavenClasspathSymbolType() throws PlexusContainerException {
         super("MavenClasspathSymbolType");
 
-        String disablePropertyValue = System.getProperty(DISABLE_KEY);
+        final String disablePropertyValue = System.getProperty(DISABLE_KEY);
         if (!"true".equalsIgnoreCase(disablePropertyValue)) {
             this.mavenClasspathExtractor = new MavenClasspathExtractor();
         }
@@ -47,32 +47,27 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 
     @Override
     public String toTarget(Translator translator, Symbol symbol) {
-        List<String> classpathElements = null;
-        ParsedSymbol parsedSymbol = getParsedSymbol(translator, symbol);
-        StringBuilder classpathForRender = new StringBuilder("<p class='meta'>Maven classpath [file: ")
+        final ParsedSymbol parsedSymbol = getParsedSymbol(translator, symbol);
+        final StringBuilder classpathForRender = new StringBuilder("<p class='meta'>Maven classpath [file: ")
                 .append(parsedSymbol.getPomFile())
                 .append(", scope: ")
                 .append(parsedSymbol.getScope())
                 .append("]:</p>")
                 .append("<ul class='meta'>");
         try {
-            classpathElements = getClasspathElements(parsedSymbol);
-            for (String element : classpathElements) {
+            for (final String element : getClasspathElements(parsedSymbol)) {
                 classpathForRender.append("<li>").append(element).append("</li>");
             }
         } catch (MavenClasspathExtractionException e) {
-            classpathForRender.append("<li class='error'>Unable to parse POM file: ")
-                            .append(e.getMessage()).append("</li>");
+            classpathForRender.append("<li class='error'>Unable to parse POM file: ").append(e.getMessage()).append("</li>");
         }
 
         classpathForRender.append("</ul>");
         return classpathForRender.toString();
-
     }
 
-    @SuppressWarnings("unchecked")
 	private List<String> getClasspathElements(final ParsedSymbol parsedSymbol) throws MavenClasspathExtractionException {
-        String symbol = parsedSymbol.symbol;
+        final String symbol = parsedSymbol.symbol;
         if(classpathCache.containsKey(symbol)) {
     		return classpathCache.get(symbol);
     	} else {
@@ -93,7 +88,7 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
     public Maybe<Symbol> parse(Symbol current, Parser parser) {
         if (!parser.isMoveNext(SymbolType.Whitespace)) return Symbol.nothing;
 
-        return new Maybe<Symbol>(current.add(parser.parseToEnds(0, SymbolProvider.pathRuleProvider, new SymbolType[] {SymbolType.Newline})));
+        return new Maybe<>(current.add(parser.parseToEnds(0, SymbolProvider.pathRuleProvider, new SymbolType[] {SymbolType.Newline})));
     }
 
     @Override
@@ -135,7 +130,7 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 		
 		private void parseSymbol() {
 			if (symbol.contains("@")) {
-	        	String[] s = symbol.split("@");
+	        	final String[] s = symbol.split("@");
 	        	pomFile = new File(s[0]);
 	        	scope = s[1];
 	        } else {
@@ -164,7 +159,7 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
 		@Override
 		public boolean equals(Object obj) {
 			if (obj instanceof ParsedSymbol) {
-				ParsedSymbol ps = (ParsedSymbol) obj;
+				final ParsedSymbol ps = (ParsedSymbol) obj;
 				return symbol.equals(ps.symbol) && lastModified == ps.lastModified;
 			}
 			return false;

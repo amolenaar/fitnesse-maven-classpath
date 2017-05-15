@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <version>9</version>
   </parent>
   
   <groupId>org.fitnesse.plugins</groupId>
@@ -35,19 +35,19 @@
     <dependency>
       <groupId>org.fitnesse</groupId>
       <artifactId>fitnesse</artifactId>
-      <version>20150114</version>
+      <version>20161106</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.6</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
-      <version>1.8.5</version>
+      <version>1.10.19</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -56,6 +56,11 @@
     	<version>3.0.4</version>
     	<type>jar</type>
     	<scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jcabi</groupId>
+      <artifactId>jcabi-aether</artifactId>
+      <version>0.10.1</version>
     </dependency>
   </dependencies>
 
@@ -82,8 +87,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>
@@ -99,6 +104,11 @@
       <id>amolenaar</id>
       <email>amolenaar@xebia.com</email>
       <name>Arjan Molenaar</name>
+    </developer>
+    <developer>
+      <id>smansri</id>
+      <email>mansri.seifeddine@gmail.com</email>
+      <name>Seifeddin Mansri</name>
     </developer>
   </developers>
 </project>
